@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Speech Recognition in Python</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="speechContainer">
+
+    <h1>Upload only files (only .wav files)</h1>
+    <form method="post" enctype="multipart/form-data" >
+        <input type="file" id="file" name="file"/>
+        <br>
+        <input type="submit" id="submitButton" value="Transcribe"/>
+    </form>
+
+    <h1>Record, Download and Upload</h1>
+
+    <div id="controls">
+     <button id="recordButton">Record</button>
+     <button id="pauseButton" disabled>Pause</button>
+     <button id="stopButton" disabled>Stop</button>
+    </div>
+    
+    <div id="formats">Format: start recording to see sample rate</div>
+    <p><strong>Recordings:</strong></p>
+    <ol id="recordingsList"></ol>
+    {% if transcript != "" %}
+        <div id="speechTranscriptContainer">
+            <h1>Your Current/Previous Transcript:</h1>
+            <p id="speechText">{{ transcript }}</p>
+            <p id="words">Total word count: {{ word_count }}</p>
+            <p id="length">Audio Duration: {{ hours }}:{{mins}}:{{seconds}}</p>
+            <p id="duration">Total Duration in minutes: {{ duration }}</p>
+            <p id="wpm">Speaking Rate(wpm): {{ wpm }}</p>
+            
+        </div>
+        
+        <h1>Filler words Bar:</h1>
+        <img src="/static/images/graph.png" alt="graph" width="50%">
+        <h1>ENERGY GRAPH:</h1>
+        <img src="/static/images/plot.png" alt="graph" width="50%">
+        
+    {% endif %}
+</div>
+<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
+<script src="/static/js/app.js"></script>
+
+</body>
+</html>
